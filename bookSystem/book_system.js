@@ -1,5 +1,7 @@
+// Step 1: Declare books array
 let books = [];
 
+// Step 2: Add Book Function
 function addBook() {
     const bookName = document.getElementById('bookName').value;
     const authorName = document.getElementById('authorName').value;
@@ -14,14 +16,15 @@ function addBook() {
             pagesNumber: pagesNumber
         };
 
-        books.push(book);
-        showbooks();
-        clearInputs();
+        books.push(book);   // Add book to array
+        showbooks();        // Display books
+        clearInputs();      // Clear form fields
     } else {
         alert('Please fill in all fields correctly.');
     }
 }
 
+// Step 3: Show Books Function (with Edit & Delete buttons)
 function showbooks() {
     const booksDiv = books.map((book, index) => `
         <h1>Book Number: ${index + 1}</h1>
@@ -30,11 +33,14 @@ function showbooks() {
         <p><strong>Book Description:</strong> ${book.bookDescription}</p>
         <p><strong>No. of Pages:</strong> ${book.pagesNumber} page(s)</p>
         <button onclick="editbook(${index})">Edit</button>
+        <button onclick="deletebook(${index})">Delete</button>
+        <hr>
     `);
 
     document.getElementById('books').innerHTML = booksDiv.join('');
 }
 
+// Step 4: Edit Book Function
 function editbook(index) {
     const book = books[index];
 
@@ -43,13 +49,21 @@ function editbook(index) {
     document.getElementById('bookDescription').value = book.bookDescription;
     document.getElementById('pagesNumber').value = book.pagesNumber;
 
-    books.splice(index, 1);
-    showbooks();
+    books.splice(index, 1); // Remove old book
+    showbooks();            // Refresh list
 }
 
+// Step 5: Delete Book Function
+function deletebook(index) {
+    books.splice(index, 1); // Delete selected book
+    showbooks();            // Refresh display
+}
+
+// Step 6: Clear Input Fields
 function clearInputs() {
     document.getElementById('bookName').value = '';
     document.getElementById('authorName').value = '';
     document.getElementById('bookDescription').value = '';
     document.getElementById('pagesNumber').value = '';
 }
+
